@@ -19,7 +19,6 @@ export const postsApi = createApi({
         `posts?page=${page}&limit=5&sortBy=createdAt&order=desc${
           search ? '&search=' + search : ''
         }`,
-      // Only have one cache entry because the arg always maps to one string
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
         if (!queryArgs.search || queryArgs.search === '') return endpointName;
         return `${endpointName}-${queryArgs.search}`;
@@ -30,6 +29,7 @@ export const postsApi = createApi({
       },
       // Refetch when the page arg changes
       forceRefetch({ currentArg, previousArg }) {
+        // this is to prevent previous items from being fetched again
         if (
           currentArg?.page &&
           previousArg?.page &&

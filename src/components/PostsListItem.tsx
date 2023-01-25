@@ -18,7 +18,7 @@ export function PostsListItem({ post }: { post: Post }) {
           height={100}
           alt={post.authorName}
         />
-        <Text>{post.postText}</Text>
+        <Text>{post.postText.substring(0, 100)}...</Text>
 
         <Image
           src={post.postImage}

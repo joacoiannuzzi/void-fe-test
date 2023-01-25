@@ -57,8 +57,9 @@ const PostsPage = () => {
       </Head>
 
       <Container>
+        <Space h="xl" />
         <Title order={2}>Posts</Title>
-        <Space h="lg" />
+        <Space h="xl" />
 
         <TextInput
           value={search}
@@ -67,7 +68,7 @@ const PostsPage = () => {
         />
 
         <Space h="xl" />
-        <Stack justify="flex-start" spacing="md">
+        <Stack justify="flex-start" spacing="lg">
           <Group position="left" grow>
             <Text>Id</Text>
             <Text>Author name</Text>
