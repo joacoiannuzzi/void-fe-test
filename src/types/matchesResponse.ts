@@ -1,9 +1,9 @@
 export interface MatchesResponse {
   status: number;
-  data: Datum[];
+  data: MatchesData[];
 }
 
-export interface Datum {
+export interface MatchesData {
   metadata: Metadata;
   players: Players;
   teams: Teams;

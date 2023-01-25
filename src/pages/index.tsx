@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
 
 import {
@@ -12,8 +11,8 @@ import {
   Title,
 } from '@mantine/core';
 
+import { LeaderboardItem } from '@/components/LeaderboardItem';
 import { useEventListener } from '@/hooks';
-import routes from '@/routeNames';
 import { valorantApi } from '@/services/valorant';
 
 const ITEMS_PER_PAGE = 1000;
@@ -127,36 +126,11 @@ export default function Home() {
           <Space h="lg" />
 
           {playersPaginated.map(player => (
-            <Link
-              href={routes.player(
-                region,
-                player.gameName ?? '',
-                player.tagLine ?? '',
-              )}
+            <LeaderboardItem
               key={`${player.gameName}-${player.tagLine}-${player.puuid}`}
-            >
-              <Group position="left" grow>
-                <Text>{player.gameName}</Text>
-                <Text size="sm" color="gray">
-                  {player.tagLine}
-                </Text>
-                <Text size="sm" color="gray">
-                  {player.leaderboardRank}
-                </Text>
-
-                <Text size="sm" color="gray">
-                  {player.rankedRating}
-                </Text>
-
-                <Text size="sm" color="gray">
-                  {player.numberOfWins}
-                </Text>
-
-                <Text size="sm" color="gray">
-                  {player.competitiveTier}
-                </Text>
-              </Group>
-            </Link>
+              region={region}
+              player={player}
+            />
           ))}
         </Stack>
       </Container>

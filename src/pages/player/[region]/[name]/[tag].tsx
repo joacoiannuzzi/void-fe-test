@@ -4,12 +4,11 @@ import { useRouter } from 'next/router';
 
 import { Container, Group, Space, Stack, Text, Title } from '@mantine/core';
 
+import { Match } from '@/components/Match';
 import { valorantApi } from '@/services/valorant';
-import { getPlayerKDA, millisToMinutesAndSeconds } from '@/utils';
 
 const PlayerPage = () => {
   const router = useRouter();
-
   const { region, name, tag } = router.query;
 
   const matchesQuery = valorantApi.useMatchesQuery({
@@ -68,42 +67,14 @@ const PlayerPage = () => {
 
           <Space h="l" />
 
-          {matches.map(match => {
-            const playerInfo = match.players.all_players.find(
-              player => player.name === name && player.tag === tag,
-            );
-            const teamOfPlayer = playerInfo?.team === 'Blue' ? 'blue' : 'red';
-
-            const hasPlayerWon = match.teams[teamOfPlayer].has_won;
-
-            const kda = getPlayerKDA(
-              playerInfo?.stats.kills ?? 0,
-              playerInfo?.stats.deaths ?? 0,
-              playerInfo?.stats.assists ?? 0,
-            );
-
-            return (
-              <Group position="left" grow key={match.metadata.matchid}>
-                <Text>{match.metadata.map}</Text>
-                <Text>{hasPlayerWon ? 'Won' : 'Lost'}</Text>
-                <Text>{kda}</Text>
-                <Text>{playerInfo?.character}</Text>
-                <Text>
-                  {new Date(match.metadata.game_start).toLocaleString()}
-                </Text>
-                <Text>
-                  {millisToMinutesAndSeconds(match.metadata.game_length)}
-                </Text>
-
-                <Image
-                  src={playerInfo?.assets.agent.small ?? ''}
-                  width={60}
-                  height={100}
-                  alt={playerInfo?.character ?? ''}
-                />
-              </Group>
-            );
-          })}
+          {matches.map(match => (
+            <Match
+              key={match.metadata.matchid}
+              match={match}
+              name={name as string}
+              tag={tag as string}
+            />
+          ))}
         </Stack>
       </Container>
     </>
