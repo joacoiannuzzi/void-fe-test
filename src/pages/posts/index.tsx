@@ -71,12 +71,6 @@ const PostsPage = () => {
           autoFocus
         />
 
-        {/* <TextInput
-          value={search}
-          onChange={event => onSearchChange(event.currentTarget.value)}
-          placeholder="Search..."
-        /> */}
-
         <Space h="xl" />
         <Stack justify="flex-start" spacing="lg">
           <Group position="left" grow>
