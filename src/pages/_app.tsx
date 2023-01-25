@@ -2,8 +2,9 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 
-import { store } from '@/store';
 import { MantineProvider } from '@mantine/core';
+
+import { store } from '@/store';
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -11,7 +12,7 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>Page title</title>
+        <title>Void</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

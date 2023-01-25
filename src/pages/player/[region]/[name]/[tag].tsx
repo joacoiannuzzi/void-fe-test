@@ -2,9 +2,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import { Container, Group, Space, Stack, Text, Title } from '@mantine/core';
+
 import { valorantApi } from '@/services/valorant';
 import { getPlayerKDA, millisToMinutesAndSeconds } from '@/utils';
-import { Container, Group, Space, Stack, Text, Title } from '@mantine/core';
 
 const PlayerPage = () => {
   const router = useRouter();
@@ -32,8 +33,8 @@ const PlayerPage = () => {
   return (
     <>
       <Head>
-        <title>Valorant Leaderboard</title>
-        <meta name="description" content="Valorant Leaderboard" />
+        <title>Matches</title>
+        <meta name="description" content="Matches" />
       </Head>
 
       <Container>
@@ -68,13 +69,12 @@ const PlayerPage = () => {
           <Space h="l" />
 
           {matches.map(match => {
-            const playerInfo = match.players?.all_players?.find(
+            const playerInfo = match.players.all_players.find(
               player => player.name === name && player.tag === tag,
             );
             const teamOfPlayer = playerInfo?.team === 'Blue' ? 'blue' : 'red';
 
-            const hasPlayerWon =
-              teamOfPlayer && match.teams?.[teamOfPlayer].has_won;
+            const hasPlayerWon = match.teams[teamOfPlayer].has_won;
 
             const kda = getPlayerKDA(
               playerInfo?.stats.kills ?? 0,
@@ -83,8 +83,8 @@ const PlayerPage = () => {
             );
 
             return (
-              <Group position="left" grow key={match.metadata?.matchid}>
-                <Text>{match.metadata?.map}</Text>
+              <Group position="left" grow key={match.metadata.matchid}>
+                <Text>{match.metadata.map}</Text>
                 <Text>{hasPlayerWon ? 'Won' : 'Lost'}</Text>
                 <Text>{kda}</Text>
                 <Text>{playerInfo?.character}</Text>

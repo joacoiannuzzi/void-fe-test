@@ -1,6 +1,7 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import { LeaderboardResponse } from '@/types/leaderboardResponse';
 import { MatchesResponse } from '@/types/matchesResponse';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const valorantApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -11,22 +12,9 @@ export const valorantApi = createApi({
       LeaderboardResponse,
       {
         region: 'eu' | 'na' | 'ap' | 'kr' | 'latam' | 'br';
-        start?: number;
       }
     >({
-      query: ({ region, start = 0 }) =>
-        `v2/leaderboard/${region}?start=${start}`,
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
-      },
-      merge: (currentCache, newData) => {
-        if (!newData.players || newData.players?.length === 0) return;
-        currentCache.players?.push(...newData.players);
-      },
-      // Refetch when the page arg changes
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
-      },
+      query: ({ region }) => `v2/leaderboard/${region}`,
     }),
 
     matches: builder.query<
