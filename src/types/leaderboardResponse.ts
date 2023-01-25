@@ -22,3 +22,5 @@ export interface Player {
   numberOfWins: number;
   competitiveTier: number;
 }
+
+export type Region = 'na' | 'eu' | 'ap' | 'kr' | 'latam' | 'br';

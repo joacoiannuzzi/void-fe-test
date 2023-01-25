@@ -36,6 +36,14 @@ export function LeaderboardItem({
         <Text size="sm" color="gray">
           {player.competitiveTier}
         </Text>
+
+        <Text size="sm" color="gray">
+          {player.IsAnonymized ? 'Yes' : 'No'}
+        </Text>
+
+        <Text size="sm" color="gray">
+          {player.IsBanned ? 'Yes' : 'No'}
+        </Text>
       </Group>
     </Link>
   );

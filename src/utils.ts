@@ -1,5 +1,5 @@
 export function millisToMinutesAndSeconds(millis: number) {
-  const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, 298999));
+  const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, millis));
   // Pull out parts of interest
   const parts = [d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()];
   // Zero-pad

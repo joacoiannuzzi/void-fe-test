@@ -14,13 +14,13 @@ import {
 import { LeaderboardItem } from '@/components/LeaderboardItem';
 import { useEventListener } from '@/hooks';
 import { valorantApi } from '@/services/valorant';
+import { Region } from '@/types/leaderboardResponse';
 
 const ITEMS_PER_PAGE = 1000;
 
 export default function Home() {
-  const [region, setRegion] = useState<
-    'na' | 'eu' | 'ap' | 'kr' | 'latam' | 'br'
-  >('na');
+  console.log('Rendering Home page...');
+  const [region, setRegion] = useState<Region>('na');
 
   const leaderboardQuery = valorantApi.useLeaderboardQuery({
     region,
@@ -76,7 +76,7 @@ export default function Home() {
         <meta name="description" content="Valorant Leaderboard" />
       </Head>
 
-      <Container>
+      <Container size="xl">
         <Title order={2}>Valorant Leaderboard</Title>
         <Space h="xl" />
 
@@ -103,7 +103,7 @@ export default function Home() {
         </Text>
         <Space h="xl" />
 
-        <Stack justify="flex-start" spacing="xs">
+        <Stack justify="flex-start" spacing="xs" align={'stretch'}>
           <Group position="left" grow>
             <Text>Game Name</Text>
             <Text size="sm" color="gray">
@@ -121,17 +121,27 @@ export default function Home() {
             <Text size="sm" color="gray">
               Tier
             </Text>
+            <Text size="sm" color="gray">
+              Is anonymized
+            </Text>
+            <Text size="sm" color="gray">
+              Is banned
+            </Text>
           </Group>
 
           <Space h="lg" />
 
-          {playersPaginated.map(player => (
-            <LeaderboardItem
-              key={`${player.gameName}-${player.tagLine}-${player.puuid}`}
-              region={region}
-              player={player}
-            />
-          ))}
+          {leaderboardQuery.isFetching ? (
+            <div>Loading...</div>
+          ) : (
+            playersPaginated.map(player => (
+              <LeaderboardItem
+                key={`${player.gameName}-${player.tagLine}-${player.puuid}`}
+                region={region}
+                player={player}
+              />
+            ))
+          )}
         </Stack>
       </Container>
     </>

@@ -6,13 +6,14 @@ import { Container, Group, Space, Stack, Text, Title } from '@mantine/core';
 
 import { Match } from '@/components/Match';
 import { valorantApi } from '@/services/valorant';
+import { Region } from '@/types/leaderboardResponse';
 
 const PlayerPage = () => {
   const router = useRouter();
   const { region, name, tag } = router.query;
 
   const matchesQuery = valorantApi.useMatchesQuery({
-    region: region as 'na' | 'eu' | 'ap' | 'kr' | 'latam' | 'br',
+    region: region as Region,
     name: name as string,
     tag: tag as string,
   });

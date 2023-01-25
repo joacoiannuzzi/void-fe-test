@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { LeaderboardResponse } from '@/types/leaderboardResponse';
+import { LeaderboardResponse, Region } from '@/types/leaderboardResponse';
 import { MatchesResponse } from '@/types/matchesResponse';
 
 export const valorantApi = createApi({
@@ -12,7 +12,7 @@ export const valorantApi = createApi({
     leaderboard: builder.query<
       LeaderboardResponse,
       {
-        region: 'eu' | 'na' | 'ap' | 'kr' | 'latam' | 'br';
+        region: Region;
       }
     >({
       query: ({ region }) => `v2/leaderboard/${region}`,
@@ -21,7 +21,7 @@ export const valorantApi = createApi({
     matches: builder.query<
       MatchesResponse,
       {
-        region: 'eu' | 'na' | 'ap' | 'kr' | 'latam' | 'br';
+        region: Region;
         name: string;
         tag: string;
       }
