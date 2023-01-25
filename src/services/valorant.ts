@@ -4,6 +4,7 @@ import { LeaderboardResponse } from '@/types/leaderboardResponse';
 import { MatchesResponse } from '@/types/matchesResponse';
 
 export const valorantApi = createApi({
+  reducerPath: 'valorantApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.henrikdev.xyz/valorant/',
   }),

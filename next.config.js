@@ -8,6 +8,18 @@ const nextConfig = {
         hostname: 'media.valorant-api.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cloudflare-ipfs.com',
+        port: '',
+        pathname: '/ipfs/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'loremflickr.com',
+        port: '',
+        // pathname: '/ipfs/**',
+      },
     ],
   },
 };

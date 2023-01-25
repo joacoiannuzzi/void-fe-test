@@ -1,12 +1,18 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
+import { postsApi } from '@/services/posts';
 import { valorantApi } from '@/services/valorant';
-import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
-  reducer: {
+  reducer: combineReducers({
     [valorantApi.reducerPath]: valorantApi.reducer,
-  },
+    [postsApi.reducerPath]: postsApi.reducer,
+  }),
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(valorantApi.middleware),
+    getDefaultMiddleware().concat([
+      postsApi.middleware,
+      valorantApi.middleware,
+    ]),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
