@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
+import { DebounceInput } from 'react-debounce-input';
 
 import {
   Container,
@@ -61,11 +62,20 @@ const PostsPage = () => {
         <Title order={2}>Posts</Title>
         <Space h="xl" />
 
-        <TextInput
+        <DebounceInput
+          element={props => <TextInput {...props} />}
+          placeholder="Search..."
+          minLength={1}
+          debounceTimeout={500}
+          onChange={event => onSearchChange(event.target.value)}
+          autoFocus
+        />
+
+        {/* <TextInput
           value={search}
           onChange={event => onSearchChange(event.currentTarget.value)}
           placeholder="Search..."
-        />
+        /> */}
 
         <Space h="xl" />
         <Stack justify="flex-start" spacing="lg">
